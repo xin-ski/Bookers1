@@ -12,13 +12,25 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def destory
+  def update
+    book = Book.find(params[:id])
+    book.update(book_params)
+    flash[:notice] = "Book was successfully updated." #update　フラッシュメッセージ
+    redirect_to  "/books/#{book.id}"
   end
 
   def create
     book = Book.new(book_params)
     book.save
-    redirect_to book_path(book.id)
+    flash[:notice] = "Book was successfully created." #title, body追加時のフラッシュメッセージ
+    redirect_to "/books/#{book.id}"
+  end
+
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    flash[:notice] = "Book was successfully destroyed." #データ削除時のフラッシュメッセージ
+    redirect_to "/books"
   end
 
   private

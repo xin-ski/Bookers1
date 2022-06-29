@@ -15,7 +15,7 @@
         <td><%= book.body %></td>
         <td><%= link_to "Show", "/books/#{book.id}" %></td>
         <td><%= link_to "Edit", "/books/#{book.id}/edit" %></td>
-        <td><a href="/destroy">Destroy</a></td>
+        <td><%= link_to "Destroy", "/books/#{book.id}", method: :delete, "data-confirm" => "Are you sure?" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -23,14 +23,18 @@
 <h2>New book</h2>
 <form class="new_book" id="new_book" action="/books" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="+HS/uzLe5G4/VR1ooLPUiDLFZ+SMs3BJS5y/PTq0fvMJ+jf4+Rag9mpJ/Xb6WNVHIAubeWXMRhNU87OPzwpV3A==">
 
-<%= form_with model: @book, url: '/books',method: :post do |f| %>
-  <h4>Title</h4>
+<%= form_with model: @book, url: "/books",method: :post do |f| %>
+  <div class="field">
+  <label for="book_title">Title</label>
   <%= f.text_field :title %>
-
-  <h4>Body</h4>
+  </div>
+  <div class="field">
+  <label for="book_body">Body</label>
   <%= f.text_area :body %>
-
+  </div>
+  <div class="actions">
   <%= f.submit 'Create Book' %>
+  </div>
 <% end %>
 
 </form>
